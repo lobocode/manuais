@@ -67,9 +67,9 @@ O arquivo `.gitconfig` armazena informações como nome de usuário, email, e ou
 
 Se você já tiver chaves, elas serão exibidas com extensões .pub (chaves públicas) e possivelmente outros arquivos. Para gerar uma nova chave SSH, use o seguinte comando, substituindo pelo seu endereço de e-mail:
 
-```bash
-ssh-keygen -t ed25519 -C "seu-email@example.com"
-```
+   ```bash
+   ssh-keygen -t ed25519 -C "seu-email@example.com"
+   ```
 
 Escolha um local para salvar a chave (pressione Enter para aceitar o local padrão) e defina uma senha (ou deixe em branco). Isso criará duas chaves, uma pública (com extensão .pub) e uma privada (sem extensão).
 
@@ -77,9 +77,9 @@ Escolha um local para salvar a chave (pressione Enter para aceitar o local padr�
 
 1. Abra o arquivo da sua chave pública em um editor de texto:
 
-```bash
-cat ~/.ssh/id_ed25519.pub
-```
+   ```bash
+   cat ~/.ssh/id_ed25519.pub
+   ```
 
 2. Copie todo o conteúdo da chave pública.
 3. Acesse sua conta no GitHub.
@@ -97,9 +97,9 @@ Agora sua chave SSH está configurada no GitHub. Lembre-se de manter a chave pri
 
 O comando `init` é usado para iniciar um novo repositório Git no seu projeto. Ele basicamente começa a rastrear um diretório existente e começa a observar mudanças.
 
-```bash
-git init
-```
+   ```bash
+   git init
+   ```
 
 ## Trabalhando com Repositórios do GitHub
 
@@ -107,26 +107,28 @@ git init
 
 Se você tem um repositório local e deseja começar a sincronizá-lo com um repositório remoto no GitHub, você conecta os dois com o comando abaixo.
 
-```bash
-git remote add origin URL_DO_REPOSITÓRIO
-```
+   ```bash
+   git remote add origin URL_DO_REPOSITÓRIO
+   ```
 
 Aqui, `origin` é um nome padrão dado ao URL remoto, mas pode ser qualquer nome. Outra opção é vc criar o repositório direto no Github bastando apenas clonar ele na máquina. Para copiar um repositório já existente do GitHub para sua máquina local, usamos o comando `clone`.
 
-```bash
-git clone URL_DO_REPOSITÓRIO
-```
+   ```bash
+   git clone URL_DO_REPOSITÓRIO
+   ```
 
 ## Comandos Básicos
 
 1. **Adicionando arquivos à área de staging**
    A "área de staging" é como uma área de preparação. Os arquivos aqui estão prontos para serem incluídos no próximo commit.
+
    ```bash
    git add NOME_DO_ARQUIVO # Adiciona um arquivo específico
    git add .               # Adiciona todos os arquivos modificados
    ```
 
 2. **Commitando suas mudanças**
+
    Um "commit" é como uma fotografia do seu código em um determinado momento. Ele registra as mudanças que você fez.
    ```bash
    git commit -m "Mensagem descritiva do que foi feito"
