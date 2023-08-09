@@ -12,6 +12,7 @@ Este guia vai te ajudar com os comandos mais básicos do Git, interagindo com o 
 - [Branches](#branches)
 - [GitFlow: Uma Estratégia de Branching](#gitflow-uma-estratégia-de-branching)
 - [Resolvendo Conflitos no Git](#resolvendo-conflitos-no-git)
+- [Comandos avançados do git](#comandos-avançados-do-git)
 - [Dicas Finais](#dicas-finais)
 
 
@@ -24,15 +25,12 @@ Git foi criado por **Linus Torvalds**, o visionário por trás do Linux. Antes d
 ### Características principais do Git:
 
 - **Distribuído**: Cada desenvolvedor tem uma cópia local completa do histórico de desenvolvimento, e as mudanças são copiadas de um repositório para outro.
-  
 - **Integridade**: Com o Git, tudo é verificado por checksum antes de ser armazenado, o que garante a integridade e confiabilidade dos dados.
-  
 - **Flexibilidade**: Seu design flexível permite que os desenvolvedores escolham seu fluxo de trabalho - seja trabalhando linearmente, criando múltiplas ramificações ou até mesmo trabalhando desconectado.
 
 ## Diferença entre Git e GitHub
 
 - **Git**: É uma ferramenta de controle de versão distribuído, que permite a programadores rastrear e trabalhar com versões diferentes de um projeto. O Git gerencia e rastreia as mudanças no código, permitindo que várias pessoas colaborem em um único projeto.
-
 - **GitHub**: É uma plataforma de hospedagem para repositórios Git. Ela fornece uma interface gráfica para gerenciar projetos Git e colaborar com outros desenvolvedores.
 
 
@@ -58,6 +56,43 @@ O arquivo `.gitconfig` armazena informações como nome de usuário, email, e ou
    git config --global user.email seuemail@example.com
    ```
 
+### Gerando uma Chave SSH para o Git
+
+1. Abra o terminal.
+2. Verifique se você já tem chaves SSH existentes:
+
+   ```bash
+   ls -al ~/.ssh
+   ```
+
+Se você já tiver chaves, elas serão exibidas com extensões .pub (chaves públicas) e possivelmente outros arquivos. Para gerar uma nova chave SSH, use o seguinte comando, substituindo pelo seu endereço de e-mail:
+
+```bash
+ssh-keygen -t ed25519 -C "seu-email@example.com"
+```
+
+Escolha um local para salvar a chave (pressione Enter para aceitar o local padrão) e defina uma senha (ou deixe em branco). Isso criará duas chaves, uma pública (com extensão .pub) e uma privada (sem extensão).
+
+### Configurando a Chave SSH no GitHub
+
+1. Abra o arquivo da sua chave pública em um editor de texto:
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+2. Copie todo o conteúdo da chave pública.
+3. Acesse sua conta no GitHub.
+4. Clique na sua foto de perfil no canto superior direito e escolha "Settings".
+5. No menu lateral esquerdo, clique em "SSH and GPG keys".
+6. Clique em "New SSH key" ou "Add SSH key".
+7. Dê um título à chave (para identificação).
+8. Cole a chave pública que você copiou no campo "Key".
+9. Clique em "Add SSH key" para salvar.
+10. Você pode ser solicitado a confirmar a ação inserindo sua senha do GitHub.
+
+Agora sua chave SSH está configurada no GitHub. Lembre-se de manter a chave privada segura, pois ela dá acesso às suas contas e repositórios. Agora você pode copiar todo o conteúdo acima e colá-lo em um arquivo Markdown para referência futura. Certifique-se de seguir as etapas cuidadosamente ao gerar e configurar sua chave SSH no Git e no GitHub.
+
 ### Inicializando um Repositório Git
 
 O comando `init` é usado para iniciar um novo repositório Git no seu projeto. Ele basicamente começa a rastrear um diretório existente e começa a observar mudanças.
@@ -68,14 +103,6 @@ git init
 
 ## Trabalhando com Repositórios do GitHub
 
-### Clonando um Repositório
-
-Para copiar um repositório já existente do GitHub para sua máquina local, usamos o comando `clone`.
-
-```bash
-git clone URL_DO_REPOSITÓRIO
-```
-
 ### Conectando um Repositório Local a um Remoto
 
 Se você tem um repositório local e deseja começar a sincronizá-lo com um repositório remoto no GitHub, você conecta os dois com o comando abaixo.
@@ -83,7 +110,12 @@ Se você tem um repositório local e deseja começar a sincronizá-lo com um rep
 ```bash
 git remote add origin URL_DO_REPOSITÓRIO
 ```
-Aqui, `origin` é um nome padrão dado ao URL remoto, mas pode ser qualquer nome.
+
+Aqui, `origin` é um nome padrão dado ao URL remoto, mas pode ser qualquer nome. Outra opção é vc criar o repositório direto no Github bastando apenas clonar ele na máquina. Para copiar um repositório já existente do GitHub para sua máquina local, usamos o comando `clone`.
+
+```bash
+git clone URL_DO_REPOSITÓRIO
+```
 
 ## Comandos Básicos
 
@@ -127,8 +159,7 @@ Antes de enviar suas mudanças para um repositório remoto, considere:
 2. **Revisar seus commits**: Use `git log` para ver seu histórico de commits e garantir que não haja erros.
 3. **Testar suas mudanças localmente**: Sempre teste o código em sua máquina local antes de enviá-lo.
 4. **Atualize e integre mudanças**: Antes de enviar suas mudanças, faça `git pull` para integrar quaisquer atualizações do repositório remoto.
-
-4. **Baixando mudanças do GitHub**
+5. **Baixando mudanças do GitHub**
    O comando `pull` pega as mudanças de um repositório remoto e as aplica ao seu repositório local.
    ```bash
    git pull origin NOME_DA_BRANCH
@@ -164,7 +195,7 @@ Quando você cria uma branch, você está essencialmente criando um ponteiro par
   
 - **Listar todas as branches**: 
   ```bash
-  git branch
+  git branch -a
   ```
 
 - **Deletar uma branch**: 
@@ -239,6 +270,57 @@ Continue com sua ação inicial, seja ela um `merge` ou `rebase`.
 5. **Ferramentas Adicionais**:
 Existem ferramentas gráficas e ambientes de desenvolvimento integrados (IDEs) que oferecem suporte visual na resolução de conflitos. Eles podem simplificar a tarefa ao destacar visualmente os conflitos e permitir correções com cliques de botão. Em resumo, o Git revolucionou o controle de versão com sua eficiência e flexibilidade. Conflitos, embora possam parecer intimidantes no início, são apenas parte do processo colaborativo e, com prática e compreensão, tornam-se facilmente gerenciáveis.
 
+## Comandos avançados do git
+
+O `git rebase` é uma operação que altera o histórico de commits, reorganizando-os linearmente. Ele "reaplica" os commits de uma branch em relação à referência de outra branch, geralmente a branch alvo é a que você deseja que o histórico reorganizado seja baseado. Isso é útil para manter o histórico de commits mais limpo, linear e fácil de entender. O `git rebase`` é mais adequado para casos em que você deseja:
+
+1. **Manter um histórico linear**: Reorganizar commits para ter um histórico mais linear e fácil de seguir, em vez de ter muitos merges.
+2. **Integrar mudanças da branch pai**: Quando você trabalhou em uma branch secundária e deseja integrar as mudanças mais recentes da branch pai (normalmente a main ou master) sem criar um commit de merge.
+3. **Corrigir conflitos de maneira gradual**: Resolver conflitos de merge enquanto você aplica seus commits, em vez de resolver tudo no final.
+
+Aqui está um guia passo a passo sobre como usar o `git rebase``:
+
+1. **Atualize sua branch**: Antes de rebase, certifique-se de que sua branch está atualizada com a branch pai (ou a branch na qual você deseja aplicar as mudanças).
+
+```bash
+git checkout sua-branch
+git pull origin branch-pai
+```
+
+2. **Inicie o rebase**: Use o comando git rebase seguido da branch que você deseja como base (normalmente a branch pai).
+
+```bash
+git rebase branch-pai
+```
+
+3. **Resolva conflitos**: Se houver conflitos, o rebase será interrompido para permitir que você resolva cada conflito manualmente. Use `git add` para marcar os arquivos como resolvidos e, em seguida, continue o rebase com `git rebase --continue``.
+4. **Conclua o rebase**: Após resolver todos os conflitos, o rebase continuará até que todos os seus commits sejam aplicados na ordem em que foram originalmente feitos.
+
+### Exemplo de uso do git rebase
+
+Suponha que você tenha uma branch `feature` onde trabalhou em uma funcionalidade específica. Enquanto isso, houve mudanças na branch `main`. Para atualizar sua funcionalidade e integrar as mudanças recentes da `main`, você faria o seguinte:
+
+```bash
+# Atualize a branch feature
+git checkout feature
+git pull origin main
+
+# Inicie o rebase
+git rebase main
+
+# Resolva conflitos, se houver
+# Use git add para marcar arquivos como resolvidos
+
+# Continue o rebase após resolver conflitos
+git rebase --continue
+
+# Repita até que todos os commits sejam aplicados
+
+# Finalize o rebase
+git push origin feature
+```
+
+Lembre-se de que, ao reescrever o histórico, você está criando novos commits. Portanto, evite usar o `git rebase` em commits que já foram compartilhados com outras pessoas, pois isso pode causar problemas de sincronização para os outros colaboradores do repositório.
 
 ## Dicas Finais
 
